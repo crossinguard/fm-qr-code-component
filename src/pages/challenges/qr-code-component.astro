@@ -1,9 +1,10 @@
 ---
 import ChallengeLayout from "../../layouts/ChallengeLayout.astro";
 import Image from "astro/components/Image.astro";
-import qr from '../../assets/image-qr-code.png';
+import qr from '../../assets/qr-code.svg';
+import oval from '../../assets/oval.svg';
 
-const title = 'QR code component'
+const title = 'QR code component';
 ---
 
 <ChallengeLayout title={title}>
@@ -11,11 +12,12 @@ const title = 'QR code component'
     <section class="solution center">
         <div class="card">
             <div class="qr">
-                <Image src={qr} alt="qr code" class="qr-code" height="288" width="288"/>
+                <Image src={qr} alt="QR code" class="qr-code" height="160" width="160"/>
+                <Image src={oval} alt="" class="oval" height="288" width="288"/>
             </div>
             <div class="text">
-                <p class="bold">Improve your front-end skills by building projects</p>
-                <p>Scan the QR code to visit Frontend Mentor and take your coding skills to the next level</p>
+                <p class="heading">Improve your front-end </br>skills by building projects</p>
+                <p class="body">Scan the QR code to visit Frontend Mentor and take your coding skills to the next level</p>
             </div>
         </div>
     </section>
@@ -26,32 +28,66 @@ const title = 'QR code component'
     @import url(https://fonts.bunny.net/css?family=outfit:400,700);
     
     .solution {
+        /* DESIGN ELEMENTS */
         --white: hsl(0, 0%, 100%);
-        --light-gray: hsl(212, 45%, 89%);
-        --grayish-blue: hsl(220, 15%, 55%);
-        --dark-blue: hsl(218, 44%, 22%);
+        --light-grey: hsl(212, 45%, 89%);
+        --grey: hsl(220, 15%, 55%);
+        --dark-navy: hsl(218, 44%, 22%);
+        --blue: hsl(216, 95%, 58%);
         --font-size: 15px;
         --mobile-size: 375px;
         --desktop-size: 1440px;
+        --font-family: 'Outfit', sans-serif;
 
-        font-family: 'Outfit', sans-serif;
-        background-color: var(--grayish-blue);
-        color: var(--dark-blue);
+        /* BASE STYLE */
+        font-family: var(--font-family);
+        background-color: var(--light-grey);
     }
-
+    
     .card {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
         background-color: var(--white);
-        border-radius: 0.5rem;
+        border-radius: 20px;
         width: 320px;
         padding: 16px;
-        margin-block-end: 24px;
     }
+    
+    .qr {
+        display: grid;
+        place-items: center;
+        grid-template-areas: "qr";
+
+        > * {
+            grid-area: hero;
+        }
+    }
+    
     .qr-code {
-        border-radius: 0.5rem;
-        margin-inline: auto;
+        z-index: 1;
+    }
+    
+    .text {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+        vertical-align: top;
+        padding-block-end: 24px;
     }
 
-    .bold {
+    .body {
+        color: var(--grey);
+        font-size: 15px;
+        letter-spacing: 0.19px;
+        padding-inline: 16px;
+    }
+    
+    .heading {
+        color: var(--dark-navy);
+        font-size: 22px;
         font-weight: 700;
+        letter-spacing: 0px;
     }
 </style>
