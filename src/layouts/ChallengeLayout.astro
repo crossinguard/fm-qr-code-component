@@ -1,0 +1,43 @@
+---
+import Footer from "../components/Footer.astro";
+import Attribution from "../components/general/Attribution.astro";
+
+import '../styles/reset.css';
+import '../styles/fonts.css';
+import '../styles/colors.css';
+import '../styles/utils.css';
+import '../styles/icons.css';
+import '../styles/challenges.css';
+import '../styles/global.css';
+
+import site from '../data/site.json';
+const {site_title, site_description} = site;
+
+interface Props {
+  title?: string | undefined;
+  description?: string | undefined;
+}
+const { title, description = site_description } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" property="og:description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title} | {site_title}</title>
+  </head>
+
+  <body>
+    <main>
+        <slot />
+    </main>
+    <Attribution />
+    <Footer />
+  </body>
+</html>

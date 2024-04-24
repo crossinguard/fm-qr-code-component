@@ -1,0 +1,42 @@
+body {
+  font-family: var(--font-family-sans);
+  color: var(--light);
+  background-color: var(--dark);
+}
+
+/* https://modern-fluid-typography.vercel.app/ */
+h1 {
+  font-family: var(--font-family-fancy);
+  font-size: 2.5rem;
+  font-size: clamp(2.5rem, 2rem + 2vw, 3rem);
+}
+
+h2 {
+  font-size: 2rem;
+  font-size: clamp(2rem, 1.5rem + 2vw, 2.5rem);
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 1rem + 2vw, 2rem);
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem);
+}
+
+h5 {
+  font-size: 1.1rem;
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.25rem);
+}
+
+a {
+  color: var(--accent-alt);
+  transition: all 0.2s ease-in-out;
+  text-underline-offset: 0.25em;
+}
+
+a:hover {
+  color: var(--accent);
+}
