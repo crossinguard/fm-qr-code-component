@@ -15,6 +15,7 @@
   /* HEADER & FOOTER */
   --primary: var(--dark-navy);
   --secondary: var(--blue);
+  --tertiary: var(--grey);
 }
 
 body {

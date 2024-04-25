@@ -32,54 +32,52 @@ const {
 ---
 
 <div class="attribution">
-    <p class="challenge">
+    <div class="challenge">
         <a href={challenge.challenge_url} target="_blank">
             {challenge.name} challenge
-        </a> by
+        </a>
+        <p>by</p>
         <a href={challenge.frontendmentor_url} target="_blank">
             Frontend Mentor
         </a>
-    </p>
-    <p class="solution">
+    </div>
+    <div class="solution">
         <a href=`${solution.github_url}/${author.handle}/${solution.repository}` target="_blank">
             Solution
-        </a> by
+        </a>
+        <p>by</p>
         <a href={website.url} target="_blank">
             {author.name}
         </a>
-    </p>
+    </div>
 
 </div>
 
 <style>
     .attribution {
         font-family: monospace;
-
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        
         p {
+            display: inline-block;
             padding: 0;
         }
         a {
             display: inline-block;
             color: var(--primary);
             text-decoration: none;
+            border: solid thin var(--tertiary);
+            border-radius: 0.4rem;
+            padding-inline: 0.4em;
+            margin-block: 0.1rem;
             
             &:hover {
                 color: var(--secondary);
+                border-color: var(--secondary);
             }
         }
 
-    }
-
-    :is(.challenge, .solution) {
-        width: fit-content;
-        margin-inline: auto;
-    }
-    
-    .challenge {
-        background-color: var(--primary);
-    }
-
-    .solution {
-        background-color: var(--secondary);
     }
 </style>
