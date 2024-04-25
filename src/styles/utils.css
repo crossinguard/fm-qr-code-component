@@ -43,3 +43,12 @@
   white-space: nowrap;
   width: 1px;
 }
+
+.grid {
+  --min: 15ch;
+  --gap: 1rem;
+
+  display: grid;
+  grid-gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
+}

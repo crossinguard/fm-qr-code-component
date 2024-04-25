@@ -1,14 +1,19 @@
 ---
-import Social from './Social.astro';
-import site from '../data/site.json';
+import Social from "./Social.astro";
 
-const {author} = site;
+interface Author {
+  name: string;
+}
+
+import site from "../data/site.json";
+const { author }: { author: Author } = site;
 const today = new Date();
+
 ---
 
 <footer>
 	<div class="flex">
-		<p>{author} &copy; {today.getFullYear()}</p>
+		<p>{author.name} &copy; {today.getFullYear()}</p>
 		<p class="curious">stay curious</p>
 		<Social />
 	</div>

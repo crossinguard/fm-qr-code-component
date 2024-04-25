@@ -1,31 +1,27 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
-interface Link {
-	label: string;
-	href: string;
-	icon: string;
+interface Social {
+  name: string;
+  url: string;
+  icon: string;
+}
+interface Author {
+  name: string;
+  handle: string;
+  social: Social[];
 }
 
-const iconLinks: Link[] = [
-	{ 
-		label: 'Website', 
-		href: 'https://crossinguard.dev/', 
-		icon: 'globe' 
-	},
-	{ 
-		label: 'GitHub', 
-		href: 'https://github.com/crossinguard', 
-		icon: 'github-logo' 
-	},
-];
+import site from "../data/site.json";
+const { author }: { author: Author } = site;
+
 ---
 <div class="social-links">
 	{
-		iconLinks.map(({ href, icon, label }) => (
-			<a href={href} class="social-link" target="_blank">
+		author.social.map(({ url, icon, name }) => (
+			<a href={url} class="social-link" target="_blank">
 				<span class="sr-only">
-					Go to {label} for W. Brett Egbert (crossinguard)
+					Go to {name} for {author.name} ({author.handle})
 				</span>
 				<Icon name={icon} />
 			</a>
