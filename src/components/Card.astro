@@ -3,29 +3,38 @@ import Image from "astro/components/Image.astro";
 import type { ImageMetadata } from "astro";
 
 interface Props {
-    qrPath: string;
-    backgroundPath: string;
-    headingText: string;
-    bodyText: string;
+  qr_path: string;
+  background_path: string;
+  heading_text: string;
+  body_text: string;
 }
 
-const { qrPath, backgroundPath, headingText, bodyText } = Astro.props;
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{png,svg}')
-if (!images[qrPath]) throw new Error(`"${qrPath}" does not exist in glob: "src/assets/*.{png,svg}"`);
-if (!images[backgroundPath]) throw new Error(`"${backgroundPath}" does not exist in glob: "src/assets/*.{png,svg}"`);
+const { qr_path, background_path, heading_text, body_text } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{png,svg}"
+);
+if (!images[qr_path])
+  throw new Error(
+    `"${qr_path}" does not exist in glob: "src/assets/*.{png,svg}"`
+  );
+if (!images[background_path])
+  throw new Error(
+    `"${background_path}" does not exist in glob: "src/assets/*.{png,svg}"`
+  );
+
 ---
 
 <div class="card">
     <div class="qr">
-        <Image src={images[qrPath]()} alt="QR code" class="qr-code" height="160" width="160"/>
-        <Image src={images[backgroundPath]()} alt="" class="oval" height="288" width="288"/>
+        <Image src={images[qr_path]()} alt="QR code" class="qr-code" height="160" width="160"/>
+        <Image src={images[background_path]()} alt="" class="oval" height="288" width="288"/>
     </div>
     <div class="text">
         <p slot="heading" class="heading">
-            {headingText}
+            {heading_text}
         </p>
         <p slot="body" class="body">
-            {bodyText}
+            {body_text}
         </p>
     </div>
 </div>
@@ -41,7 +50,7 @@ if (!images[backgroundPath]) throw new Error(`"${backgroundPath}" does not exist
         padding: 16px;
         }
 
-        .qr {
+    .qr {
         display: grid;
         place-items: center;
         grid-template-areas: 'qr';
@@ -49,32 +58,32 @@ if (!images[backgroundPath]) throw new Error(`"${backgroundPath}" does not exist
         > * {
             grid-area: hero;
         }
-        }
+    }
 
-        .qr-code {
+    .qr-code {
         z-index: 1;
-        }
+    }
 
-        .text {
+    .text {
         display: flex;
         flex-direction: column;
         text-align: center;
         gap: 16px;
         vertical-align: top;
         padding-block-end: 24px;
-        }
+    }
 
-        .body {
-        color: var(--grey);
-        font-size: 15px;
-        letter-spacing: 0.19px;
-        padding-inline: 16px;
-        }
-
-        .heading {
+    .heading {
         color: var(--dark-navy);
         font-size: 22px;
         font-weight: 700;
         letter-spacing: 0px;
-        }
+    }
+
+    .body {
+        color: var(--grey);
+        font-size: 15px;
+        letter-spacing: 0.19px;
+        padding-inline: 16px;
+    }
 </style>

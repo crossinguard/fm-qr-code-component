@@ -15,7 +15,6 @@ This is a solution to the [QR code component challenge on Frontend Mentor](https
     - [Continued development](#continued-development)
     - [Useful resources](#useful-resources)
   - [Author](#author)
-  - [Acknowledgments](#acknowledgments)
 
 **Note: Delete this note and update the table of contents based on what sections you keep.**
 
@@ -23,15 +22,7 @@ This is a solution to the [QR code component challenge on Frontend Mentor](https
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![QR code component - desktop view](src/assets/screenshot-desktop.png)
 
 ### Links
 
@@ -42,61 +33,96 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+- [Astro](https://astro.build/) - web framework
+  - starting point: blank template
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- HTML, CSS, TypeScript - coding languages
+- [GitHub](https://github.com/) - git repository host
+- [Netlify](https://www.netlify.com/) - web host platform
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+I had two focuses going into this challenge.
 
-To see how you can add code snippets, see below:
+1. Make my solution an Astro component that could be easily customized in the future with different QR codes, heading text, and body text.
+2. Create my solution page with core elements and components that could be reused across many Frontend Mentor challenges.
+
+Regarding the first focus, I created my component `Card.astro` with four props identifying the images and text used in the component. This ensures core elements of the QR code component can be easily altered while using it. More refined changes would happen directly within the `Card.astro` component's style section.
 
 ```html
-<h1>Some HTML code I'm proud of</h1>
+<Card
+    qr_path="/src/assets/qr-code.svg"
+    background_path="/src/assets/oval.svg"
+    heading_text="Improve your front-end skills by building projects"
+    body_text="Scan the QR code to visit Frontend Mentor and take your coding skills to the next level">
+</Card>  
 ```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+
+Astro optimizes images for web use, but requires those images to be imported prior to use. I followed [this guide on dynamically importing images](https://docs.astro.build/en/recipes/dynamically-importing-images/) within the Astro docs to allow my component to accept image paths as props.
+
+I decided to make the QR code itself and it's background as two separate image layers within the component, with the QR code stacked on top. That allows either to be manipulated. However, I was struggling with how to position them without using absolute positioning. SmolCSS with the [stack layout](https://smolcss.dev/#smol-stack-layout) to the rescue! The component itself is a fixed size currently, but this is more future-proof than assuming it will never resize in future iterations.
+
+To accomplish my second goal I created a `site.json` file to feed information to many of the layouts and components of my solution site. I then reworked the layouts, headers, social, and footers to automatically update from that file.
+
+```json
+{
+  "website": {
+    "title": "crossinguard.dev",
+    "description": "Challenges completed as part of the Frontend Mentor learning paths.",
+    "url": "https://crossinguard.dev/",
+    "language": "en"
+  },
+  "author": {
+    "name": "W. Brett Egbert",
+    "handle": "crossinguard",
+    "social": [
+      {
+        "name": "Website",
+        "url": "https://crossinguard.dev/",
+        "icon": "globe"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/crossinguard",
+        "icon": "github-logo"
+      }
+    ]
+  },
+  "challenge": {
+    "name": "QR code component",
+    "challenge_url": "https://www.frontendmentor.io/challenges/qr-code-component-iux_sIO_H",
+    "frontendmentor_url": "https://www.frontendmentor.io?ref=challenge"
+  },
+  "solution": {
+    "github_url": "https://github.com",
+    "repository": "fm-qr-code-component"
+  }
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+The challenge and solution data can now be easily updated for each new project, allowing the solution to be a standalone component nested within the base layout.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```html
+<ChallengeLayout>
+    <section class="center">
+        <Card> 
+            ...
+        </Card>        
+    </section>
+</ChallengeLayout>
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+This was created with a fixed size to match the design parameters. However, I think this component would benefit from accepting a prop for the QR code size and base font size, then dynamically adapting all supporting elements based on those props.
 
 ### Useful resources
 
-- [3 Popular Website Heroes Created With CSS Grid Layout | Modern CSS](https://moderncss.dev/3-popular-website-heroes-created-with-css-grid-layout/#hero-2-text-overlay-on-background-image) - For the QR code I had an svg of the blue oval background and an svg of the QR code itself. I wanted to use best practices with using the Astro `<Image>` component and this helped me layer the elements without using absolute positioning.
+- [Dynamically import images | Astro docs](https://docs.astro.build/en/recipes/dynamically-importing-images/) - For creating an Astro component that accepts an image path as a prop
+- [Smol Stack Layout | SmolCSS](https://smolcss.dev/#smol-stack-layout) - For the QR code and background layering without using absolute positioning
+- [3 Popular Website Heroes Created With CSS Grid Layout | Modern CSS](https://moderncss.dev/3-popular-website-heroes-created-with-css-grid-layout/#hero-2-text-overlay-on-background-image) - Extra information regarding the stack layout in a hero
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Website - [W. Brett Egbert | crossinguard.dev](https://crossinguard.dev/)
+- Frontend Mentor - [@crossinguard](https://www.frontendmentor.io/profile/crossinguard)
