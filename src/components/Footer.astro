@@ -1,4 +1,5 @@
 ---
+import Social from './Social.astro';
 import site from '../data/site.json';
 
 const {author} = site;
@@ -8,12 +9,13 @@ const today = new Date();
 <footer>
 	<div class="flex">
 		<p>{author} &copy; {today.getFullYear()}</p>
-		<p>stay curious</p>
+		<p class="curious">stay curious</p>
+		<Social />
 	</div>
 </footer>
 <style>
 	.flex {
-		font-family: var(--font-family-mono);
+		font-family: monospace;
 		display: flex;
 		flex-direction: column;
 		padding-block: 4em;
@@ -21,8 +23,8 @@ const today = new Date();
 		text-align: center;
 	}
 
-	p:last-child {
-		font-style: italic;
+	.curious {
 		font-size: smaller;
+		font-style: italic;
 	}
 </style>

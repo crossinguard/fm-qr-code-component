@@ -1,43 +1,49 @@
 ---
 import Footer from "../components/Footer.astro";
-import Attribution from "../components/general/Attribution.astro";
+import Attribution from "../components/Attribution.astro";
 
 import '../styles/reset.css';
-import '../styles/fonts.css';
-import '../styles/colors.css';
 import '../styles/utils.css';
-import '../styles/icons.css';
-import '../styles/challenges.css';
 import '../styles/global.css';
 
-import site from '../data/site.json';
-const {site_title, site_description} = site;
-
-interface Props {
-  title?: string | undefined;
-  description?: string | undefined;
+interface Site {
+  site_title: string;
+  site_description: string;
+  challenge: string;
 }
-const { title, description = site_description } = Astro.props;
+
+import site from '../data/site.json';
+const {site_title, site_description, challenge}: Site = site;
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="description" property="og:description" content={description} />
+    <meta name="description" property="og:description" content={site_description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content={Astro.generator} />
 
     <!-- favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <title>{title} | {site_title}</title>
+    <title>{challenge} | {site_title}</title>
   </head>
 
   <body>
     <main>
+      <div class="header">
+        <h1>{challenge}</h1>
+        <Attribution />
+      </div>
         <slot />
     </main>
-    <Attribution />
     <Footer />
   </body>
 </html>
+
+<style>
+  .header {
+    text-align: center;
+    padding-block: 2em;
+  }
+</style>

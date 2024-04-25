@@ -1,6 +1,7 @@
 {
-  "site_title": "Frontend Mentor challenges",
-  "site_description": "Challenges completed as part of the Frontend Mentor learning paths",
+  "site_title": "crossinguard.dev",
+  "site_description": "Challenges completed as part of the Frontend Mentor learning paths.",
+  "challenge": "QR code component",
   "author": "W. Brett Egbert",
   "website": "https://crossinguard.dev/"
 }

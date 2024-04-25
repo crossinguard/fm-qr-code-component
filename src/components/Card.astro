@@ -1,0 +1,80 @@
+---
+import Image from "astro/components/Image.astro";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+    qrPath: string;
+    backgroundPath: string;
+    headingText: string;
+    bodyText: string;
+}
+
+const { qrPath, backgroundPath, headingText, bodyText } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{png,svg}')
+if (!images[qrPath]) throw new Error(`"${qrPath}" does not exist in glob: "src/assets/*.{png,svg}"`);
+if (!images[backgroundPath]) throw new Error(`"${backgroundPath}" does not exist in glob: "src/assets/*.{png,svg}"`);
+---
+
+<div class="card">
+    <div class="qr">
+        <Image src={images[qrPath]()} alt="QR code" class="qr-code" height="160" width="160"/>
+        <Image src={images[backgroundPath]()} alt="" class="oval" height="288" width="288"/>
+    </div>
+    <div class="text">
+        <p slot="heading" class="heading">
+            {headingText}
+        </p>
+        <p slot="body" class="body">
+            {bodyText}
+        </p>
+    </div>
+</div>
+
+<style>
+    .card {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        background-color: var(--white);
+        border-radius: 20px;
+        width: 320px;
+        padding: 16px;
+        }
+
+        .qr {
+        display: grid;
+        place-items: center;
+        grid-template-areas: 'qr';
+
+        > * {
+            grid-area: hero;
+        }
+        }
+
+        .qr-code {
+        z-index: 1;
+        }
+
+        .text {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+        vertical-align: top;
+        padding-block-end: 24px;
+        }
+
+        .body {
+        color: var(--grey);
+        font-size: 15px;
+        letter-spacing: 0.19px;
+        padding-inline: 16px;
+        }
+
+        .heading {
+        color: var(--dark-navy);
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0px;
+        }
+</style>

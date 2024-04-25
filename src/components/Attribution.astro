@@ -1,0 +1,28 @@
+---
+import site from '../data/site.json';
+
+const {author, website} = site;
+---
+
+<div class="attribution">
+    <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a></p>
+    <p>Solution by <a href={website} target="_blank">{author}</a></p>
+</div>
+
+<style>
+    .attribution { 
+        font-family: monospace;
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            text-underline-offset: 0.2rem;
+
+            &:hover {
+                color: var(--secondary);
+                text-decoration: underline;
+            }
+        }
+
+    }
+</style>
